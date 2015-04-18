@@ -1,0 +1,10 @@
+/*.csproj
+
+/Library/
+/Assets/Standard Assets/
+/*.sln
+/*.suo
+/*.userprefs
+/*.apk
+/Assets/Standard Assets.meta
+/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
