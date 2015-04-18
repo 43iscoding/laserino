@@ -4,6 +4,7 @@ using System.Collections;
 public class GameLogic : MonoBehaviour {
 
     public static GameLogic instance;
+    public Fade fade;
     public bool alwaysShoot;
 
     int bombsLeft;
@@ -17,8 +18,14 @@ public class GameLogic : MonoBehaviour {
 
     void Start()
     {
+        fade.FadeIn();
         bombsLeft = FindObjectsOfType<Bomb>().Length;
         inputLocked = false;
+    }
+
+    public void OnCannonExploded()
+    {
+        StartCoroutine(Lose());
     }
 
     public void OnBombExploded()
@@ -29,6 +36,13 @@ public class GameLogic : MonoBehaviour {
         {
             StartCoroutine(Win());
         }
+    }
+
+    IEnumerator Lose()
+    {
+        inputLocked = true;
+        yield return new WaitForSeconds(1.337f);
+        GameUI.instance.ShowLoseScreen();
     }
 
     IEnumerator Win()
@@ -45,11 +59,31 @@ public class GameLogic : MonoBehaviour {
 
     public void Replay()
     {
-        Application.LoadLevel(Application.loadedLevel);
+        fade.FadeOut(ReplayCallback);
+    }
+
+    void ReplayCallback()
+    {
+        Levels.ReloadLevel();
     }
 
     public void NextLevel()
     {
-        Application.LoadLevel(Application.loadedLevel + 1);
+        fade.FadeOut(NextLevelCallback);
+    }
+
+    void NextLevelCallback()
+    {
+        Levels.LoadNextLevel();
+    }
+
+    public void MainMenu()
+    {
+        fade.FadeOut(MainMenuCallback);
+    }
+
+    void MainMenuCallback()
+    {
+        Levels.LoadMenu();
     }
 }

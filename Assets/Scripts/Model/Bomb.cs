@@ -1,14 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[RequireComponent(typeof(TemperatureController))]
-public class Bomb : MonoBehaviour {
+public class Bomb : HeatExplosive {
 
-    void OnHeated()
+    public override void OnHeated()
     {
-        GameObject explosion = Instantiate(GamePrefabs.instance.explosion, transform.position, Quaternion.identity) as GameObject;
-        Destroy(gameObject);
-        Destroy(explosion, 5);
+        base.OnHeated();
         GameLogic.instance.OnBombExploded();
     }
 }

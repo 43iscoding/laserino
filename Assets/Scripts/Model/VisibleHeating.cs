@@ -20,6 +20,8 @@ public class VisibleHeating : TemperatureController {
         Renderer[] childRenderers = GetComponentsInChildren<Renderer>();
         foreach (Renderer child in childRenderers)
         {
+            if (child is LineRenderer) continue;
+
             children.Add(child, child.material.color);
         }
     }

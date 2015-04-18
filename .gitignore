@@ -7,4 +7,5 @@
 /*.userprefs
 /*.apk
 /Assets/Standard Assets.meta
-/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
+/obj/
+/Temp/

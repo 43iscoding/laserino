@@ -32,13 +32,11 @@ public static class Levels {
 
     public static void LoadNextLevel()
     {
-        if (Application.loadedLevel == totalLevels + 2)
-        {
-            LoadEpilogue();
-        }
-        else
-        {
-            Application.LoadLevel(Application.loadedLevel + 1);
-        }
+        Application.LoadLevel(Application.loadedLevel + 1);        
+    }
+
+    public static void ReloadLevel()
+    {
+        Application.LoadLevel(Application.loadedLevel);
     }
 }

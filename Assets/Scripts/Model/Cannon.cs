@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Cannon : MonoBehaviour {
+public class Cannon : HeatExplosive {
 
     public LineRenderer laser;
     GameObject spark;
@@ -10,7 +10,6 @@ public class Cannon : MonoBehaviour {
     void Start()
     {
         spark = Instantiate(GamePrefabs.instance.spark);
-        spark.SetActive(false);
     }
 
     void Shoot()
@@ -39,7 +38,6 @@ public class Cannon : MonoBehaviour {
             else
             {
                 //spark
-                spark.SetActive(true);
                 spark.transform.position = hitInfo.point;
             }
         }
@@ -48,11 +46,15 @@ public class Cannon : MonoBehaviour {
     void StopShooting()
     {
         laser.SetVertexCount(1);
-        spark.SetActive(false);
     }
 
 	void Update () {
-        if (GameLogic.instance.InputLocked()) return;
+        spark.transform.position = transform.position;
+        if (GameLogic.instance.InputLocked())
+        {
+            StopShooting();
+            return;
+        }
 
         Rotate();
         if (Input.GetMouseButton(0) || GameLogic.instance.alwaysShoot) {
@@ -86,4 +88,11 @@ public class Cannon : MonoBehaviour {
 		Quaternion targetRotation = Quaternion.AngleAxis(angle, Vector3.up);
 		transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, power);
 	}
+
+    public override void OnHeated()
+    {
+        base.OnHeated();
+        Destroy(spark);
+        GameLogic.instance.OnCannonExploded();
+    }
 }
