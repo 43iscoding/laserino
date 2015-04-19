@@ -41,6 +41,7 @@ public class GameLogic : MonoBehaviour {
     IEnumerator Lose()
     {
         inputLocked = true;
+        GameUI.instance.BlurIn();
         yield return new WaitForSeconds(1.337f);
         GameUI.instance.ShowLoseScreen();
     }
@@ -48,6 +49,7 @@ public class GameLogic : MonoBehaviour {
     IEnumerator Win()
     {
         inputLocked = true;
+        GameUI.instance.BlurIn();
         yield return new WaitForSeconds(1.337f);
         GameUI.instance.ShowWinScreen();
     }

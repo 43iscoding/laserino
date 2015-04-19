@@ -14,5 +14,7 @@ public class Epilogue : MonoBehaviour {
         fade.FadeIn();
         yield return new WaitForSeconds(4f);
         fade.FadeOut();
+        yield return new WaitForSeconds(2f);
+        Levels.LoadMenu();
     }
 }

@@ -14,6 +14,7 @@ public class Cannon : HeatExplosive {
 
     protected void Shoot()
     {
+        SoundManager.instance.Laser();
         spark.transform.position = transform.position;
         laser.SetPosition(0, transform.position);
         Shoot(transform.position, transform.rotation * Vector3.forward, laserRange, 1);
@@ -46,6 +47,7 @@ public class Cannon : HeatExplosive {
 
     protected void StopShooting()
     {
+        SoundManager.instance.StopLaser();
         laser.SetVertexCount(1);
         spark.transform.position = transform.position;
     }	

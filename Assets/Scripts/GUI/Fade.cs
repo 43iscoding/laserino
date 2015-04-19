@@ -6,7 +6,7 @@ public class Fade : MonoBehaviour {
 
     public CanvasRenderer image;
     public Canvas canvas;
-    float fadeSpeed = 0.01f;
+    float fadeSpeed = 0.02f;
 
     public void FadeIn(Action callback = null)
     {
