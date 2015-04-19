@@ -13,4 +13,10 @@ public class Enemy : Cannon {
             Shoot();
         }
 	}
+
+    public override void OnHeated()
+    {
+        base.OnHeated();
+        GameLogic.instance.OnEnemyDied();
+    }
 }

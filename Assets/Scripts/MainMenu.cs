@@ -6,6 +6,16 @@ public class MainMenu : MonoBehaviour {
     public Fade fade;
     public GameObject mainMenu;
     public GameObject achievementsMenu;
+    public GameObject levelSelection;
+
+    public static MainMenu instance;
+
+    int selectedLevel = 1;
+
+    void Awake()
+    {
+        instance = this;
+    }
 
     void Start()
     {
@@ -19,12 +29,7 @@ public class MainMenu : MonoBehaviour {
 
     void PlayCallback()
     {
-        Levels.LoadFirstLevel();
-    }
-
-    public void Continue()
-    {
-        Levels.LoadSavedLevel();
+        Levels.LoadLevel(selectedLevel);
     }
 
     public void Exit()
@@ -45,6 +50,7 @@ public class MainMenu : MonoBehaviour {
     void AchievementsCallback()
     {
         mainMenu.SetActive(false);
+        levelSelection.SetActive(false);
         achievementsMenu.SetActive(true);
         fade.FadeIn();
     }
@@ -56,8 +62,28 @@ public class MainMenu : MonoBehaviour {
 
     void MenuCallback()
     {
-        mainMenu.SetActive(true);
         achievementsMenu.SetActive(false);
+        levelSelection.SetActive(false);
+        mainMenu.SetActive(true);
         fade.FadeIn();
+    }
+
+    public void LevelSelection()
+    {
+        fade.FadeOut(LevelSelectionCallback);
+    }
+
+    void LevelSelectionCallback()
+    {
+        achievementsMenu.SetActive(false);
+        mainMenu.SetActive(false);
+        levelSelection.SetActive(true);
+        fade.FadeIn();
+    }
+
+    public void OnLevelSelect(int index)
+    {
+        selectedLevel = index;
+        Debug.Log("Level: " + index);
     }
 }

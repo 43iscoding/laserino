@@ -4,7 +4,7 @@ using System.Collections;
 public class GamePrefabs : MonoBehaviour {
 
     public GameObject explosion;
-    public GameObject spark;
+    public GameObject explosionBig;
 
     public static GamePrefabs instance;
 

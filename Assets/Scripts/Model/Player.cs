@@ -1,8 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Player : Cannon {
-
+public class Player : Cannon {    
 
     void Update()
     {
@@ -28,4 +27,6 @@ public class Player : Cannon {
         base.OnHeated();
         GameLogic.instance.OnPlayerDied();
     }
+
+    //Process SOS signal
 }

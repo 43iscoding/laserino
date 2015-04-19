@@ -4,18 +4,26 @@ using System.Collections;
 public class Cannon : HeatExplosive {
 
     public LineRenderer laser;
-    GameObject spark;
-    float laserRange = 200;
+    public AudioSource laserSound;
+    float laserRange = 1000;
 
     void Start()
     {
-        spark = Instantiate(GamePrefabs.instance.spark, transform.position, Quaternion.identity) as GameObject;
+        SetupLaserSound();
+    }
+
+    void SetupLaserSound()
+    {
+        laserSound.loop = true;
+        laserSound.mute = false;
+        laserSound.volume = Random.Range(0.7f, 1f);
+        laserSound.pitch = Random.Range(0.95f, 1.05f);
+        laserSound.Play();
     }
 
     protected void Shoot()
     {
-        SoundManager.instance.Laser();
-        spark.transform.position = transform.position;
+        laserSound.mute = false;
         laser.SetPosition(0, transform.position);
         Shoot(transform.position, transform.rotation * Vector3.forward, laserRange, 1);
     }
@@ -37,19 +45,13 @@ public class Cannon : HeatExplosive {
             {
                 Shoot(hitInfo.point, Vector3.Reflect(direction, hitInfo.normal), distance - hitInfo.distance, index + 1);
             }
-            else
-            {
-                //spark
-                spark.transform.position = hitInfo.point;
-            }
         }
     }
 
     protected void StopShooting()
     {
-        SoundManager.instance.StopLaser();
+        laserSound.mute = true;
         laser.SetVertexCount(1);
-        spark.transform.position = transform.position;
     }	
 
     protected void Rotate()
@@ -74,10 +76,4 @@ public class Cannon : HeatExplosive {
 		Quaternion targetRotation = Quaternion.AngleAxis(angle, Vector3.up);
 		transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, power);
 	}
-
-    public override void OnHeated()
-    {
-        base.OnHeated();
-        Destroy(spark);
-    }
 }
