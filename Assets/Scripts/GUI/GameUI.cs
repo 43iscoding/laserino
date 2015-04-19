@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityStandardAssets.ImageEffects;
+using UnityEngine.UI;
 
 public class GameUI : MonoBehaviour {
 
@@ -9,11 +10,28 @@ public class GameUI : MonoBehaviour {
     public GameObject loseScreen;
     public AchievementPopup achievementPopup;
     public BlurOptimized blur;
+
+    public Image levelIndex;
+    public Text levelDescription;
+
     float blurSpeed = 0.1f;
 
     void Awake()
     {
         instance = this;
+    }
+
+    void Start()
+    {
+        if (levelDescription != null)
+        {
+            levelDescription.text = Levels.LevelDescription();
+        }
+
+        if (levelIndex != null)
+        {
+            levelIndex.sprite = GamePrefabs.instance.numbers[Levels.LevelIndex() - 1];
+        }
     }
 
     public void ShowWinScreen()

@@ -29,7 +29,7 @@ public class TemperatureController : MonoBehaviour {
             temperature = Mathf.Max(minTemperature, temperature - coolSpeed);
         }
 
-        if (temperature == maxTemperature)
+        if (temperature >= maxTemperature)
         {
             SendMessage("OnHeated", SendMessageOptions.DontRequireReceiver);
         }

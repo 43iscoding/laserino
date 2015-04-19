@@ -10,7 +10,8 @@ public class SoundManager : MonoBehaviour {
     }
 
     public AudioClip[] explosions;
-    public AudioClip[] lasers;
+    public AudioClip laser;
+    public AudioClip music;
 
     public AudioSource audio;
 
@@ -27,25 +28,8 @@ public class SoundManager : MonoBehaviour {
     {
         AudioSource audio = source.AddComponent<AudioSource>();
         audio.clip = explosions[Random.Range(0, explosions.Length)];
-        audio.volume = Random.Range(0.7f, 1);
+        audio.volume = Random.Range(0.15f, 0.25f);
         audio.Play();
-    }
-
-    public void Laser()
-    {
-        return;
-        if (!laserPlaying)
-        {
-            Loop(lasers[Random.Range(0, lasers.Length)]);
-            laserPlaying = true;
-        }
-    }
-
-    public void StopLaser()
-    {
-        return;
-        laserPlaying = false;
-        audio.Stop();
     }
 
     public void Play(AudioClip clip)

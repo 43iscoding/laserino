@@ -11,7 +11,16 @@ public class HeatExplosive : MonoBehaviour
         GameObject prefab = big ? GamePrefabs.instance.explosionBig : GamePrefabs.instance.explosion;
         GameObject explosion = Instantiate(prefab, transform.position, Quaternion.identity) as GameObject;
         SoundManager.instance.Explosion(explosion);
+        if (big) {
+            GameLogic.instance.ShakeScreen(1f, 0.8f);
+        }
+        else
+        {
+            GameLogic.instance.ShakeScreen(0.5f, 0.5f);
+        }
         Destroy(gameObject);
-        Destroy(explosion, 5);        
+        Destroy(explosion, 1);        
     }
+
+    
 }

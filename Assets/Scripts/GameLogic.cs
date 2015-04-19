@@ -12,6 +12,8 @@ public class GameLogic : MonoBehaviour {
 
     bool inputLocked;
 
+    bool idle = true;
+
     void Awake()
     {
         instance = this;
@@ -19,10 +21,19 @@ public class GameLogic : MonoBehaviour {
 
     void Start()
     {
+        idle = true;
         fade.FadeIn();
         bombsLeft = FindObjectsOfType<Bomb>().Length;
         enemiesLeft = FindObjectsOfType<Enemy>().Length;
         inputLocked = false;
+    }
+
+    void Update()
+    {
+        if (Input.GetMouseButton(0))
+        {
+            idle = false;
+        }
     }
 
     public void OnPlayerDied()
@@ -57,7 +68,7 @@ public class GameLogic : MonoBehaviour {
     IEnumerator Win()
     {
         inputLocked = true;
-        Achievements.ReportLevelDone(Levels.LevelName(), enemiesLeft);
+        Achievements.ReportLevelDone(Levels.LevelName(), enemiesLeft, idle);
         Levels.UnlockNextLevel();
         GameUI.instance.BlurIn();
         yield return new WaitForSeconds(1.337f);
@@ -97,5 +108,24 @@ public class GameLogic : MonoBehaviour {
     void MainMenuCallback()
     {
         Levels.LoadMenu();
+    }
+
+    public void ShakeScreen(float amount, float time)
+    {
+        StartCoroutine(ShakeCoroutine(amount, time));
+    }
+
+    IEnumerator ShakeCoroutine(float amount, float time)
+    {
+        float timeLeft = time;
+        Vector3 pos = Camera.main.transform.position;
+        while (timeLeft > 0)
+        {
+            float ratio = timeLeft / time;
+            Camera.main.transform.position = pos + Random.insideUnitSphere * amount * ratio;
+            timeLeft -= Time.deltaTime;
+            yield return null;
+        }
+        Camera.main.transform.position = pos;
     }
 }

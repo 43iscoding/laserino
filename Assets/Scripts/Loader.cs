@@ -9,7 +9,20 @@ public class Loader : MonoBehaviour
 
     void Start()
     {
+        ReturnAchievement();
         StartCoroutine(PlayLoader());
+    }
+
+    void ReturnAchievement()
+    {
+        if (PlayerPrefs.HasKey("laserino_return"))
+        {
+            Achievements.UnlockAchievement(Achievements.RETURN);
+        }
+        else
+        {
+            PlayerPrefs.SetInt("laserino_return", 1);
+        }
     }
 
     IEnumerator PlayLoader()

@@ -10,14 +10,12 @@ public class Fade : MonoBehaviour {
 
     public void FadeIn(Action callback = null)
     {
-        Debug.Log("Fade in");
         gameObject.SetActive(true);
         StartCoroutine(FadeCoroutine(0, callback));
     }
 
     public void FadeOut(Action callback = null)
     {
-        Debug.Log("Fade out");
         StartCoroutine(FadeCoroutine(1, callback));
     }
 

@@ -5,13 +5,13 @@ using System;
 
 public class Achievements : MonoBehaviour {
 
-    public static int L = 0;
-    public static int A = 1;
-    public static int S = 2;
+    public static int TAOIST = 0;
+    public static int RETURN = 1;
+    public static int MULISH = 2;
     public static int SHORTCUT = 3;
     public static int PACIFIST = 4;
-    public static int MILITARIST = 5;
-    public static int N = 6;
+    public static int WARMONGER = 5;
+    public static int FINALE = 6;
     public static int DISTRESS = 7;
 
     public static bool HasAchievement(string achievement)
@@ -36,13 +36,13 @@ public class Achievements : MonoBehaviour {
     {
         switch (key)
         {
-            case "L": return L;
-            case "A": return A;
-            case "S": return S;
+            case "L": return TAOIST;
+            case "A": return RETURN;
+            case "S": return MULISH;
             case "E": return SHORTCUT;
             case "R": return PACIFIST;
-            case "I": return MILITARIST;
-            case "N": return N;
+            case "I": return WARMONGER;
+            case "N": return FINALE;
             case "O": return DISTRESS;
             default: return -1;
         }
@@ -60,34 +60,48 @@ public class Achievements : MonoBehaviour {
         PlayerPrefs.DeleteKey("laserino_ach_7");
     }
 
+    public static string Name(string key)
+    {
+        switch (key)
+        {
+            case "L": return "Taoist";
+            case "A": return "Return";
+            case "S": return "Mulish";
+            case "E": return "Shortcut";
+            case "R": return "Pacifist";
+            case "I": return "Warmonger";
+            case "N": return "Finale";
+            case "O": return "Distress";
+            default: return "error";
+        }  
+    }
+
     public static string Description(string key)
     {
         switch (key)
         {
-            case "L": return "testL";
-            case "A": return "testA";
-            case "S": return "testS";
-            case "E": return "testE";
-            case "R": return "testR";
-            case "I": return "testI";
-            case "N": return "testN";
-            case "O": return "testO";
+            case "L": return "Wait by the river...";
+            case "A": return "Go have some sleep";
+            case "S": return "That thing IS destructible";
+            case "E": return "Who likes arcs anyway?";
+            case "R": return "Ignore him!";
+            case "I": return "Punish him!";
+            case "N": return "Make it to the end";
+            case "O": return "Call for help!";
             default: return "error";
         }
     }
 
-    public static void ReportLevelDone(string level, int enemiesLeft)
+    public static void ReportLevelDone(string level, int enemiesLeft, bool idle)
     {
-        if (level == "Assault")
+        if (level == "Assault" && enemiesLeft != 0)
         {
-            if (enemiesLeft == 0)
-            {
-                UnlockAchievement(MILITARIST);
-            }
-            else
-            {
-                UnlockAchievement(PACIFIST);
-            }
+            UnlockAchievement(PACIFIST);
+        }
+
+        if (level == "Crossfire" && idle)
+        {
+            UnlockAchievement(TAOIST);
         }
     }
 
@@ -96,7 +110,19 @@ public class Achievements : MonoBehaviour {
         switch (name)
         {
             case "shortcut": UnlockAchievement(SHORTCUT); break;
+            case "militarist": UnlockAchievement(WARMONGER); break;
+            case "stubborn": UnlockAchievement(MULISH); break;
             default: Debug.Log("Unknown achievement event: " + name); break;
         }
+    }
+
+    public static string Progress()
+    {
+        int completed = 0;
+        for (int i = 0; i < 8; i++)
+        {
+            if (PlayerPrefs.HasKey("laserino_ach_" + i)) completed++;
+        }
+        return "You have completed " + completed + "/8 achievements";
     }
 }

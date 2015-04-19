@@ -21,6 +21,7 @@ public class VisibleHeating : TemperatureController {
         foreach (Renderer child in childRenderers)
         {
             if (child is LineRenderer) continue;
+            if (child is ParticleRenderer) continue;
 
             children.Add(child, child.material.color);
         }

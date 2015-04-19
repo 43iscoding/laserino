@@ -42,7 +42,7 @@ public class MainMenu : MonoBehaviour {
         Application.Quit();
     }
 
-    public void Achievements()
+    public void OpenAchievements()
     {
         fade.FadeOut(AchievementsCallback);
     }
@@ -85,5 +85,12 @@ public class MainMenu : MonoBehaviour {
     {
         selectedLevel = index;
         Debug.Log("Level: " + index);
+    }
+
+    public void ResetProgress()
+    {
+        Achievements.Clear();
+        Levels.ResetProgress();
+        Levels.LoadMenu();
     }
 }

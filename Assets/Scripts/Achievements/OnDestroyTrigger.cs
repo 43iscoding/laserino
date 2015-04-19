@@ -5,7 +5,7 @@ public class OnDestroyTrigger : MonoBehaviour {
 
     public string eventName;
 
-    void OnDestroy()
+    void OnHeated()
     {
         Achievements.Report(eventName);
     }

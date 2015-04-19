@@ -14,9 +14,10 @@ public class Cannon : HeatExplosive {
 
     void SetupLaserSound()
     {
+        laserSound.clip = SoundManager.instance.laser;
         laserSound.loop = true;
         laserSound.mute = false;
-        laserSound.volume = Random.Range(0.7f, 1f);
+        laserSound.volume = Random.Range(0.1f, 0.13f);
         laserSound.pitch = Random.Range(0.95f, 1.05f);
         laserSound.Play();
     }

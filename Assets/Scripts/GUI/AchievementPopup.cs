@@ -5,8 +5,9 @@ using UnityEngine.UI;
 public class AchievementPopup : MonoBehaviour {
 
     public Image[] images;
-    public Transform from;
-    public Transform to;
+
+    Vector3 from;
+    Vector2 to;
 
     public void Process(int achievement)
     {
@@ -21,12 +22,14 @@ public class AchievementPopup : MonoBehaviour {
     
     IEnumerator ProcessCoroutine()
     {
-        transform.position = from.position;
+        from = transform.position;
+        to = transform.position;
+        to.y = -to.y;
         float time = 1.337f;
         float timeLeft = time;
         while (timeLeft > 0) {
             timeLeft -= Time.deltaTime;
-            transform.position = Vector3.Lerp(to.position, from.position, timeLeft / time);
+            transform.position = Vector3.Lerp(to, from, timeLeft / time);
             yield return null;
         }
         yield return new WaitForSeconds(1.337f);
@@ -34,7 +37,7 @@ public class AchievementPopup : MonoBehaviour {
         while (timeLeft > 0)
         {
             timeLeft -= Time.deltaTime;
-            transform.position = Vector3.Lerp(from.position, to.position, timeLeft / time);
+            transform.position = Vector3.Lerp(from, to, timeLeft / time);
             yield return null;
         }
     }
