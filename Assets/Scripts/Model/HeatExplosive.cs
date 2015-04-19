@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[RequireComponent(typeof(TemperatureController))]
+[RequireComponent(typeof(VisibleHeating))]
 public class HeatExplosive : MonoBehaviour
 {
 

@@ -5,15 +5,16 @@ public class Cannon : HeatExplosive {
 
     public LineRenderer laser;
     GameObject spark;
-    public float laserRange = 8;
+    float laserRange = 200;
 
     void Start()
     {
-        spark = Instantiate(GamePrefabs.instance.spark);
+        spark = Instantiate(GamePrefabs.instance.spark, transform.position, Quaternion.identity) as GameObject;
     }
 
-    void Shoot()
+    protected void Shoot()
     {
+        spark.transform.position = transform.position;
         laser.SetPosition(0, transform.position);
         Shoot(transform.position, transform.rotation * Vector3.forward, laserRange, 1);
     }
@@ -43,30 +44,13 @@ public class Cannon : HeatExplosive {
         }
     }
 
-    void StopShooting()
+    protected void StopShooting()
     {
         laser.SetVertexCount(1);
-    }
-
-	void Update () {
         spark.transform.position = transform.position;
-        if (GameLogic.instance.InputLocked())
-        {
-            StopShooting();
-            return;
-        }
+    }	
 
-        Rotate();
-        if (Input.GetMouseButton(0) || GameLogic.instance.alwaysShoot) {
-            Shoot();
-        }
-        else
-        {
-            StopShooting();
-        }
-	}
-
-    void Rotate()
+    protected void Rotate()
     {
         Vector3 pointer;
         if (Input.touchCount > 0)
@@ -82,7 +66,7 @@ public class Cannon : HeatExplosive {
         Rotate(pointer - transform.position, 1);
     }
 
-	void Rotate(Vector3 direction, float power)
+	protected void Rotate(Vector3 direction, float power)
 	{
 		float angle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
 		Quaternion targetRotation = Quaternion.AngleAxis(angle, Vector3.up);
@@ -93,6 +77,5 @@ public class Cannon : HeatExplosive {
     {
         base.OnHeated();
         Destroy(spark);
-        GameLogic.instance.OnCannonExploded();
     }
 }

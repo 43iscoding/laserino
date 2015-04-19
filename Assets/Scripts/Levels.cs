@@ -7,7 +7,7 @@ public static class Levels {
     //Menu - scene 1
     //Level1 - scene
 
-    public static int totalLevels = 3;
+    public static int totalLevels = 5;
 
     public static void LoadMenu()
     {

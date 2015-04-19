@@ -23,7 +23,7 @@ public class GameLogic : MonoBehaviour {
         inputLocked = false;
     }
 
-    public void OnCannonExploded()
+    public void OnPlayerDied()
     {
         StartCoroutine(Lose());
     }

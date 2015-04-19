@@ -7,8 +7,8 @@ public class TemperatureController : MonoBehaviour {
     float minTemperature = 0;
 
     float temperature;
-    float heatSpeed = 0.02f;
-    float coolSpeed = 0.01f;
+    public float heatSpeed = 0.02f;
+    public float coolSpeed = 0.01f;
 
     bool heating;
 
