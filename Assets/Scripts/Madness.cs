@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityStandardAssets.ImageEffects;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 
 public class Madness : MonoBehaviour {
 
@@ -61,6 +63,7 @@ public class Madness : MonoBehaviour {
 	}
 }
 
+#if UNITY_EDITOR
 [CustomEditor(typeof(Madness))]
 public class MadnessEditor : Editor
 {
@@ -79,3 +82,4 @@ public class MadnessEditor : Editor
 
     }
 } 
+#endif
