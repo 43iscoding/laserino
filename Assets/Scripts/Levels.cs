@@ -83,7 +83,7 @@ public static class Levels {
             case "Intro": return "Shoot the bomb!";
             case "Reflection": return "Some walls are reflectable..";
             case "Destructable": return "And some walls are destructable";
-            case "Arc": return ":-)";
+            case "Arc": return "Did you notice the smile?";
             case "Maze": return "Don't burn yourself";
             case "Boxes": return "Find the right angle";
             case "Alien": return "You are not alone";
@@ -91,7 +91,7 @@ public static class Levels {
             case "Assault": return "En garde!";
             case "Crossfire": return "Are they trying to kill you?";
             case "Wrong": return "Something is wrong...";
-            case "Madness": return "Is this Sparta?";
+            case "Madness": return "The final boss";
             default: return "Default description";
         }
     }
